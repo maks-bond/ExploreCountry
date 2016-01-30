@@ -20,7 +20,7 @@ function populateCountries(){
             countryInfo[country].cities = [];
         }
         
-        countryInfo[country].cities.push(airport);
+        countryInfo[country].cities.push($.extend({}, airport));
     }
     var countryNames = Object.keys(countryInfo);
     for(var i = 0; i<countryNames.length; ++i) {

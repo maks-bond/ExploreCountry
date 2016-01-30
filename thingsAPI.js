@@ -8,7 +8,7 @@ function buildFlightSearchURL(from, to, departure, arrival) {
 
 function showThings (city) {
   $.ajax({
-    url: "http://terminal2.expedia.com:80/x/activities/search?location=" + city + "&startDate=2016-08-08&endDate=2016-08-18&apikey=lZg5sVj3LGQC7PZFGX6tkAw2mwAzyINJ",
+    url: "http://terminal2.expedia.com:80/x/activities/search?location=" + city.city + "&startDate=2016-08-08&endDate=2016-08-18&apikey=lZg5sVj3LGQC7PZFGX6tkAw2mwAzyINJ",
     type: "get",
     success: function(res) { 
       var things = [];
