@@ -3,6 +3,7 @@
 $(function(){
    populateCountries();
    renderCountries(countries);
+   showTravelData(airport, date, coords);
    $('#showButton').click(showThingsToDo);
 }); 
 
