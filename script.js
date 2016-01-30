@@ -1,8 +1,8 @@
+/* global $ */
 
 $(function(){
    populateCountries();
    renderCountries(countries);
-   showThings();
    $('#showButton').click(showThingsToDo);
 }); 
 
@@ -18,7 +18,12 @@ function populateCountries(){
             countryInfo[country] = {};
             countryInfo[country].cities = [];
         }
-        countryInfo[country].cities.push(airport.city);
+        var airportInfo = {
+            city: airport.city,
+            airport: airport.code,
+        };
+        
+        countryInfo[country].cities.push(airportInfo);
     }
     var countryNames = Object.keys(countryInfo);
     for(var i = 0; i<countryNames.length; ++i) {
@@ -43,7 +48,13 @@ function renderCountries(countries) {
 function showThingsToDo() {
     var selectedCountry = $('.countries').val();
     if(selectedCountry){
-        console.log('Showing things to do for country: ' + selectedCountry);
+        $('.pic-container')[0].innerHTML = "";
+        //console.log('Showing things to do for country: ' + selectedCountry);
+        var cities = countryInfo[selectedCountry].cities;
+        for(var i = 0; i<cities.length; ++i){
+            var city = cities[i].city;
+            showThings(city);
+        }
     }
 };
 
