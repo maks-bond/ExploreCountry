@@ -1,4 +1,11 @@
-/* global $ */
+
+$(function(){
+   populateCountries();
+   renderCountries(countries);
+   showThings();
+   $('#showButton').click(showThingsToDo);
+}); 
+
 
 var airports = airportData.airports;
 var countries = [];
@@ -40,14 +47,6 @@ function showThingsToDo() {
     }
 };
 
-$(function(){
-   populateCountries();
-   renderCountries(countries);
-   $('#showButton').click(showThingsToDo);
-});
 
 
 
-
-
-    
