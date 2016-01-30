@@ -33,6 +33,8 @@ function showThings (city) {
 }
 
 function createButtons(fromCity, toCity, departure, arrival){
+  
+  
    var buttonGroup = $("<div class='cityButtonGroup'></div>");
    var flightDiv = $("<div class='cityButtonContainer'></div>");
    var hotelDiv = flightDiv.clone();
@@ -46,6 +48,11 @@ function createButtons(fromCity, toCity, departure, arrival){
    
    var fromCityCode = fromCity.code;
    var toCityCode = toCity.code;
+
+   showTravelData(fromCityCode, toCityCode, function(prices) {
+      console.log(fromCityCode);
+   });
+   
    flightExpediaButton.click(function(){
        window.open(buildFlightSearchURL(fromCityCode, toCityCode, departure, arrival), '_blank');
    });
@@ -61,7 +68,7 @@ function createButtons(fromCity, toCity, departure, arrival){
    hotelDiv.append(hotelExpediaButton).append(hotelPrice);
    carDiv.append(carExpediaButton).append(carPrice);
    buttonGroup.append(flightDiv).append(hotelDiv).append(carDiv);
-   
+  
    return buttonGroup;
 };
 
@@ -82,19 +89,21 @@ function visualizationThings (city, things, departure, arrival) {
    }
 }
 
-function showTravelData (airport, date, coords) {
+function showTravelData (fromCityCode, toCityCode, callback) {
   var travelData = {};
   $.ajax({
-    url: "http://terminal2.expedia.com:80/x/mflights/search?departureDate=&returnDate=2016-02-20&departureAirport="+ airport.departure.code + "&arrivalAirport=" + airport.arrival.code + "&apikey=TkefBxxLZbMGgOvKRGFLIkYJxcB3bYtA",
+    url: "http://terminal2.expedia.com:80/x/mflights/search?departureDate=&returnDate=2016-02-20&departureAirport="+ fromCityCode + "&arrivalAirport=" + toCityCode + "&apikey=TkefBxxLZbMGgOvKRGFLIkYJxcB3bYtA",
     type: "get",
     success: function(res) { 
       var results = res.offers;
       var price = results[0].baseFarePrice.formattedWholePrice;
       travelData.flightPrice = price;
+      callback(travelData);
       //console.log(travelData.flightPrice)
     }
   });
-  $.ajax({
+  
+  /*$.ajax({
     url: "http://terminal2.expedia.com/x/cars/search?pickupdate=2016-03-21T10:00&dropoffdate=2016-03-28T16:30&pickuplocation=" +airport.arrival.code + "&dropofflocation=" + airport + "&sort=price&limit=2&apikey=PxOSAzW4pRSLSJSVYnuQQoAQNPGGBWOV",
     type: "get",
     success: function(res) { 
@@ -113,5 +122,5 @@ function showTravelData (airport, date, coords) {
       travelData.hotelPrice = '$' + Math.round(priceHotel);
       //console.log(travelData.hotelPrice)
     }
-  });
+  });*/
 }
