@@ -1,3 +1,10 @@
+// TODO: It is not a unique name
+var fromAirport = 'seatac';
+
+// TODO: Add people count
+function buildFlightSearchURL(from, to, departure, arrival) {
+    return "https://www.expedia.com/Flights-Search?trip=roundtrip&leg1=from:"+from+",to:"+to+",departure:"+departure+"TANYT&leg2=from:"+to+",to:"+from+",departure:"+arrival+"TANYT&passengers=children:0,adults:1,seniors:0,infantinlap:Y&mode=search";
+};
 
 function showThings (city) {
   $.ajax({
@@ -17,10 +24,41 @@ function showThings (city) {
   });
 }
 
-function visualizationThings (city, things) {
-   var title = $("<h3></h3>");
-   title.text(city);
+function createButtons(fromCity, toCity, departure, arrival){
+   var buttonGroup = $("<div class='cityButtonGroup'></div>");
+   var flightDiv = $("<div class='cityButtonContainer'></div>");
+   var hotelDiv = flightDiv.clone();
+   var carDiv = flightDiv.clone();
+   var flightExpediaButton = $("<button class='cityButton medium alert button'>Flight</button>");
+   var hotelExpediaButton = $("<button class='cityButton medium alert button'>Hotel</button>");
+   var carExpediaButton = $("<button class='cityButton medium alert button'>Car</button>");
+   var flightPrice = $('<span>from 1000$</span>');
+   var hotelPrice = $('<span>from 50$</span>');
+   var carPrice = $('<span>from 25$</span>');
+   
+   flightExpediaButton.click(function(){
+       window.open(buildFlightSearchURL(fromCity, toCity, departure, arrival), '_blank');
+   });
+   
+   flightDiv.append(flightExpediaButton).append(flightPrice);
+   hotelDiv.append(hotelExpediaButton).append(hotelPrice);
+   carDiv.append(carExpediaButton).append(carPrice);
+   buttonGroup.append(flightDiv).append(hotelDiv).append(carDiv);
+   
+   return buttonGroup;
+};
+
+function visualizationThings (city, things, departure, arrival) {
+   var title = $('<div class="cityTitle"></div>');
+    
+   var titleText = $("<h3 class='titleText'></h3>");
+   titleText.text(city.city);
+   var buttonGroup = createButtons(fromAirport, city.airport, "02/08/2016", "02/14/2016");
+   title.append(titleText);
+   title.append(buttonGroup);
+   
    $('.pic-container').append(title);
+   
    for (var i = 0; i<things.length; i++) {
        var image = $('<img>',{id:'theImg', src:"http:" + things[i].image, height: 197, width: 350});
        $('.pic-container').append(image);

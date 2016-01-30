@@ -1,0 +1,17 @@
+.cityButtonContainer {
+	display: inline-block;
+}
+
+.cityButtonGroup {
+	display: inline-block;
+}
+
+.titleText {
+	display: inline-block;
+    margin-right: 10px;
+}
+
+.cityButton {
+    margin-right: 10px !important;
+    margin-left: 10px !important;
+}

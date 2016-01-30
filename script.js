@@ -52,7 +52,7 @@ function showThingsToDo() {
         //console.log('Showing things to do for country: ' + selectedCountry);
         var cities = countryInfo[selectedCountry].cities;
         for(var i = 0; i<cities.length; ++i){
-            var city = cities[i].city;
+            var city = cities[i];
             showThings(city);
         }
     }
