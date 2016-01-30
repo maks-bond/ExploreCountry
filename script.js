@@ -3,7 +3,7 @@
 $(function(){
    populateCountries();
    renderCountries(countries);
-   showTravelData(airport, date, coords);
+   //showTravelData(airport, date, coords);
    $('#showButton').click(showThingsToDo);
 }); 
 
@@ -19,12 +19,8 @@ function populateCountries(){
             countryInfo[country] = {};
             countryInfo[country].cities = [];
         }
-        var airportInfo = {
-            city: airport.city,
-            airport: airport.code,
-        };
         
-        countryInfo[country].cities.push(airportInfo);
+        countryInfo[country].cities.push(airport);
     }
     var countryNames = Object.keys(countryInfo);
     for(var i = 0; i<countryNames.length; ++i) {

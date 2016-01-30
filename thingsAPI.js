@@ -53,7 +53,7 @@ function visualizationThings (city, things, departure, arrival) {
     
    var titleText = $("<h3 class='titleText'></h3>");
    titleText.text(city.city);
-   var buttonGroup = createButtons(fromAirport, city.airport, "02/08/2016", "02/14/2016");
+   var buttonGroup = createButtons(fromAirport, city.code, "02/08/2016", "02/14/2016");
    title.append(titleText);
    title.append(buttonGroup);
    
