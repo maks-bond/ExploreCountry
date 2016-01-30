@@ -1,5 +1,5 @@
 // TODO: It is not a unique name
-var fromAirport = 'seatac';
+var fromAirport = {code: 'seatac'};
 
 // TODO: Add people count
 function buildFlightSearchURL(from, to, departure, arrival) {
@@ -36,8 +36,10 @@ function createButtons(fromCity, toCity, departure, arrival){
    var hotelPrice = $('<span>from 50$</span>');
    var carPrice = $('<span>from 25$</span>');
    
+   var fromCityCode = fromCity.code;
+   var toCityCode = toCity.code;
    flightExpediaButton.click(function(){
-       window.open(buildFlightSearchURL(fromCity, toCity, departure, arrival), '_blank');
+       window.open(buildFlightSearchURL(fromCityCode, toCityCode, departure, arrival), '_blank');
    });
    
    flightDiv.append(flightExpediaButton).append(flightPrice);
@@ -53,7 +55,7 @@ function visualizationThings (city, things, departure, arrival) {
     
    var titleText = $("<h3 class='titleText'></h3>");
    titleText.text(city.city);
-   var buttonGroup = createButtons(fromAirport, city.code, "02/08/2016", "02/14/2016");
+   var buttonGroup = createButtons(fromAirport, city, "02/08/2016", "02/14/2016");
    title.append(titleText);
    title.append(buttonGroup);
    
