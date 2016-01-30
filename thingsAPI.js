@@ -1,9 +1,17 @@
-// TODO: It is not a unique name
+// TODO: Take it from your location
 var fromAirport = {code: 'seatac'};
 
 // TODO: Add people count
 function buildFlightSearchURL(from, to, departure, arrival) {
     return "https://www.expedia.com/Flights-Search?trip=roundtrip&leg1=from:"+from+",to:"+to+",departure:"+departure+"TANYT&leg2=from:"+to+",to:"+from+",departure:"+arrival+"TANYT&passengers=children:0,adults:1,seniors:0,infantinlap:Y&mode=search";
+};
+
+function buildHotelSearchURL(toCity, toCountry, departure, arrival) {
+    return "https://www.expedia.com/Hotel-Search?#&destination="+toCity+", "+toCountry+"&startDate="+departure+"&endDate="+arrival+"&adults=1";
+};
+
+function buildCarSearchURL(toCity, toCountry, departure, arrival){
+    return "https://www.expedia.com/carsearch?date1="+departure+"&date2="+arrival+"&kind=1&locn="+toCity+", "+toCountry+"&rdus=10&vend=";
 };
 
 function showThings (city) {
@@ -41,7 +49,14 @@ function createButtons(fromCity, toCity, departure, arrival){
    flightExpediaButton.click(function(){
        window.open(buildFlightSearchURL(fromCityCode, toCityCode, departure, arrival), '_blank');
    });
-   
+   var toCityName = toCity.city;
+   var toCountry = toCity.country;
+   hotelExpediaButton.click(function(){
+       window.open(buildHotelSearchURL(toCityName, toCountry, departure, arrival), '_blank');
+   });
+   carExpediaButton.click(function(){
+       window.open(buildCarSearchURL(toCityName, toCountry, departure, arrival), '_blank');
+   });
    flightDiv.append(flightExpediaButton).append(flightPrice);
    hotelDiv.append(hotelExpediaButton).append(hotelPrice);
    carDiv.append(carExpediaButton).append(carPrice);
