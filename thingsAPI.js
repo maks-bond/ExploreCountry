@@ -73,6 +73,8 @@ function createButtons(fromCity, toCity, departure, arrival){
 };
 
 function visualizationThings (city, things, departure, arrival) {
+   var galleryId = 'gallery' + city.city;
+   var $cityContainer = $("<div id='" + galleryId + "'></div>") //.addClass('none');
    var title = $('<div class="cityTitle"></div>');
     
    var titleText = $("<h3 class='titleText'></h3>");
@@ -81,12 +83,28 @@ function visualizationThings (city, things, departure, arrival) {
    title.append(titleText);
    title.append(buttonGroup);
    
-   $('.pic-container').append(title);
    
    for (var i = 0; i<things.length; i++) {
-       var image = $('<img>',{id:'theImg', src:"http:" + things[i].image, height: 197, width: 350});
-       $('.pic-container').append(image);
+       var imageSource = "http:" + things[i].image;
+       var image = $('<img>',{src:imageSource, "data-image": imageSource, "data-description": "desc", alt: things[i].title});
+       var a = $("<a></a>");
+       a.append(image);
+       $cityContainer.append(a);
    }
+   $('.pic-container').append($cityContainer);
+   $cityContainer.unitegallery({
+      gallery_theme:"tilesgrid",
+      tile_as_link:true,
+      tile_enable_textpanel:true,
+      tile_enable_icons:false,
+      tile_textpanel_title_text_align: "center",
+      grid_space_between_cols:0,
+      grid_space_between_rows:0,
+      tile_enable_border:false,
+      tile_enable_shadow:false,
+      grid_padding:0,
+      tile_width:300
+   }); 
 }
 
 function showTravelData (fromCityCode, toCityCode, callback) {

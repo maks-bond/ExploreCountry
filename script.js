@@ -4,6 +4,15 @@ $(function(){
    populateCountries();
    renderCountries(countries);
    $('#showButton').click(showThingsToDo);
+  // $("#gallery").unitegallery();
+  /*   gallery_theme:"tilesgrid",
+    grid_space_between_cols:0,
+    grid_space_between_rows:0,
+    tile_enable_border:false,
+    tile_enable_shadow:false,
+    grid_padding:0,
+    tile_width:250,
+   }); */
 }); 
 
 
