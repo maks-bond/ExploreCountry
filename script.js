@@ -9,6 +9,8 @@ $(function(){
 //       source: countries
 //     });
    $('#showButton').click(showThingsToDo);
+
+
    $('#firstCountries').on('change', countrySelectionChanged);
    $('#exploreButton').on('click', function(){
        isMapMode = false;
@@ -20,6 +22,7 @@ $(function(){
        modeChanged();
    });
    modeChanged();
+
 }); 
 
 var isMapMode = true;
