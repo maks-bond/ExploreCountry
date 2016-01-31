@@ -65,3 +65,10 @@ html, body {
 .cityTitle {
     margin-left: 20px;
 }
+
+.dateContainer {
+    position: absolute;
+    top: 50px;
+    left: 20px;
+    width: 150px;
+}

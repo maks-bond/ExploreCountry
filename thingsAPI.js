@@ -31,7 +31,9 @@ function showThings (city) {
         thingsObject.image = results[i].imageUrl;
         things.push(thingsObject);
       }
-      visualizationThings (city, things);
+      var departureDate = $('#datepickerDepart').datepicker({ dateFormat: 'mm/dd/yyyy' }).val();
+      var returningDate = $('#datepickerReturn').datepicker({ dateFormat: 'mm/dd/yyyy' }).val();
+      visualizationThings (city, things, departureDate, returningDate);
     }
   });
 }
@@ -92,7 +94,8 @@ function visualizationThings (city, things, departure, arrival) {
     
    var titleText = $("<h3 class='titleText'></h3>");
    titleText.text(city.city);
-   var buttonGroup = createButtons(fromAirport, city, "02/08/2016", "02/14/2016");
+   //var buttonGroup = createButtons(fromAirport, city, "02/08/2016", "02/14/2016");
+   var buttonGroup = createButtons(fromAirport, city, departure, arrival);
    title.append(titleText);
    title.append(buttonGroup);
    
@@ -101,7 +104,7 @@ function visualizationThings (city, things, departure, arrival) {
    for (var i = 0; i<things.length; i++) {
        var imageSource = "http:" + things[i].image;
        var image = $('<img>',{src:imageSource, "data-image": imageSource, "data-description": "desc", alt: things[i].title});
-       var a = $("<a href='"+buildThingsToDoURL(city.city, city.country, "02/08/2016", "02/14/2016")+"'></a>");
+       var a = $("<a href='"+buildThingsToDoURL(city.city, city.country, departure, arrival)+"'></a>");
        a.append(image);
        $galleryContainer.append(a);
    }

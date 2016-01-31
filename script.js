@@ -21,6 +21,10 @@ $(function(){
        isMapMode = true;
        modeChanged();
    });
+   $('#datepickerDepart').datepicker();
+   $('#datepickerDepart').datepicker('setDate', new Date("02/08/2016"));
+   $('#datepickerReturn').datepicker();
+   $('#datepickerReturn').datepicker('setDate', new Date("02/14/2016"));
    modeChanged();
 
 }); 
