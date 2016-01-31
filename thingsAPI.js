@@ -14,6 +14,10 @@ function buildCarSearchURL(toCity, toCountry, departure, arrival){
     return "https://www.expedia.com/carsearch?date1="+departure+"&date2="+arrival+"&kind=1&locn="+toCity+", "+toCountry+"&rdus=10&vend=";
 };
 
+function buildThingsToDoURL(toCity, toCountry, departure, arrival) {
+    return "https://www.expedia.com/things-to-do/?location="+toCity+", "+toCountry+"&startDate="+departure+"&endDate="+arrival;
+}
+
 function showThings (city) {
   $.ajax({
     url: "http://terminal2.expedia.com:80/x/activities/search?location=" + city.city + "&startDate=2016-08-08&endDate=2016-08-18&apikey=lZg5sVj3LGQC7PZFGX6tkAw2mwAzyINJ",
@@ -32,17 +36,26 @@ function showThings (city) {
   });
 }
 
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
 function createButtons(fromCity, toCity, departure, arrival) {
    var buttonGroup = $("<div class='cityButtonGroup'></div>");
    var flightDiv = $("<div class='cityButtonContainer'></div>");
    var hotelDiv = flightDiv.clone();
    var carDiv = flightDiv.clone();
-   var flightExpediaButton = $("<button class='cityButton medium alert button'>Flight</button>");
-   var hotelExpediaButton = $("<button class='cityButton medium alert button'>Hotel</button>");
-   var carExpediaButton = $("<button class='cityButton medium alert button'>Car</button>");
-   var flightPrice = $('<span>from 1000$</span>');
-   var hotelPrice = $('<span>from 50$</span>');
-   var carPrice = $('<span>from 25$</span>');
+   
+   var flightPrice = getRandomInt(800, 1000);
+   var hotelPrice = getRandomInt(40, 70);
+   var carPrice = getRandomInt(15, 25);
+   
+   var flightExpediaButton = $("<button class='cityButton medium alert button'>Flight from "+ flightPrice +"$ </button>");
+   var hotelExpediaButton = $("<button class='cityButton medium alert button'>Hotel from "+hotelPrice+"$</button>");
+   var carExpediaButton = $("<button class='cityButton medium alert button'>Car from "+carPrice+"$ per day</button>");
+//    var flightPrice = $('<span>from 1000$</span>');
+//    var hotelPrice = $('<span>from 50$</span>');
+//    var carPrice = $('<span>from 25$</span>');
    
    var fromCityCode = fromCity.code;
    var toCityCode = toCity.code;
@@ -64,7 +77,7 @@ function createButtons(fromCity, toCity, departure, arrival) {
    });
    flightDiv.append(flightExpediaButton)//.append(flightPrice);
    hotelDiv.append(hotelExpediaButton)//.append(hotelPrice);
-   carDiv.append(carExpediaButton)//.append(carPrice);
+   carDiv.append(carExpediaButton)//    .append(carPrice);
    buttonGroup.append(flightDiv).append(hotelDiv).append(carDiv);
   
    return buttonGroup;
@@ -88,7 +101,7 @@ function visualizationThings (city, things, departure, arrival) {
    for (var i = 0; i<things.length; i++) {
        var imageSource = "http:" + things[i].image;
        var image = $('<img>',{src:imageSource, "data-image": imageSource, "data-description": "desc", alt: things[i].title});
-       var a = $("<a></a>");
+       var a = $("<a href='"+buildThingsToDoURL(city.city, city.country, "02/08/2016", "02/14/2016")+"'></a>");
        a.append(image);
        $galleryContainer.append(a);
    }
