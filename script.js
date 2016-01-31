@@ -41,6 +41,9 @@ function initMap() {
         var latLng = e.latLng;
         positionCountryByLatLng(latLng);
     });
+    map.addListener('idle', function(e){
+        $('.gmnoprint').remove();
+    });
 };
 
 function countrySelectionChanged(event) {

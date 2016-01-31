@@ -72,7 +72,9 @@ function createButtons(fromCity, toCity, departure, arrival) {
 
 function visualizationThings (city, things, departure, arrival) {
    var galleryId = 'gallery' + city.city;
-   var $cityContainer = $("<div id='" + galleryId + "'></div>") //.addClass('none');
+   galleryId = galleryId.replace(/ /g,"");
+   var $cityContainer = $("<div class='cityContainer'></div>");
+   var $galleryContainer = $("<div id='" + galleryId + "' class='galleryDiv'></div>") //.addClass('none');
    var title = $('<div class="cityTitle"></div>');
     
    var titleText = $("<h3 class='titleText'></h3>");
@@ -81,16 +83,17 @@ function visualizationThings (city, things, departure, arrival) {
    title.append(titleText);
    title.append(buttonGroup);
    
+   $cityContainer.append(title).append($galleryContainer);
    
    for (var i = 0; i<things.length; i++) {
        var imageSource = "http:" + things[i].image;
        var image = $('<img>',{src:imageSource, "data-image": imageSource, "data-description": "desc", alt: things[i].title});
        var a = $("<a></a>");
        a.append(image);
-       $cityContainer.append(a);
+       $galleryContainer.append(a);
    }
    $('.pic-container').append($cityContainer);
-   $cityContainer.unitegallery({
+   $galleryContainer.unitegallery({
       gallery_theme:"tilesgrid",
       tile_as_link:true,
       tile_enable_textpanel:true,

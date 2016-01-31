@@ -57,3 +57,11 @@ html, body {
     top: 50px;
     width: 100%;
 }
+
+.galleryDiv {
+    margin-bottom: 70px;
+}
+
+.cityTitle {
+    margin-left: 20px;
+}
