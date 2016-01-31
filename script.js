@@ -1,24 +1,91 @@
+/* global google */
 /* global $ */
 
 $(function(){
    populateCountries();
    renderCountries(countries);
+   //$( "#firstCountries" ).combobox();
+//    $( "#firstCountries" ).autocomplete({
+//       source: countries
+//     });
    $('#showButton').click(showThingsToDo);
-  // $("#gallery").unitegallery();
-  /*   gallery_theme:"tilesgrid",
-    grid_space_between_cols:0,
-    grid_space_between_rows:0,
-    tile_enable_border:false,
-    tile_enable_shadow:false,
-    grid_padding:0,
-    tile_width:250,
-   }); */
+
+
+   $('#firstCountries').on('change', countrySelectionChanged);
+   $('#exploreButton').on('click', function(){
+       isMapMode = false;
+       modeChanged();
+       showThingsToDo($('#firstCountries').val());
+   });
+   $('#backToMap').click(function(){
+       isMapMode = true;
+       modeChanged();
+   });
+   modeChanged();
+
 }); 
 
-
+var isMapMode = true;
 var airports = airportData.airports;
 var countries = [];
 var countryInfo = {};
+var map;
+var geocoder;
+
+function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: -34.397, lng: 150.644},
+        zoom: 8
+    });
+    map.addListener('click', function(e) {	 
+        var latLng = e.latLng;
+        positionCountryByLatLng(latLng);
+    });
+};
+
+function countrySelectionChanged(event) {
+    var country = $('#firstCountries').val();
+    positionCountry(country);
+    var exploreText = $('#exploreButton').text();
+    $('#exploreButton').text("Explore " + country);
+};
+
+function positionCountry(country) {
+    if(!geocoder) {
+        geocoder = new google.maps.Geocoder();    
+    }
+    geocoder.geocode( { 'address': country}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            map.setCenter(results[0].geometry.location);
+            map.fitBounds(results[0].geometry.viewport);
+        }
+    });
+};
+
+function positionCountryByLatLng(latLng) {
+    if(!geocoder) {
+        geocoder = new google.maps.Geocoder();    
+    }
+    geocoder.geocode({'location': latLng}, function(results, status){
+        if (status == google.maps.GeocoderStatus.OK && results.length) {
+            var last_result = results[results.length - 1];
+            var country = last_result.formatted_address;
+            $('#firstCountries').val(country);
+            countrySelectionChanged();
+        }
+    })
+};
+
+function modeChanged() {
+    if(isMapMode) {
+        $('#first').show();
+        $('#details').hide();
+    } else {
+        $('#first').hide();
+        $('#details').show();
+    }
+};
+  
 function populateCountries(){
     for (var i = 0; i<airports.length; ++i) {
         var airport = airports[i];
@@ -50,8 +117,7 @@ function renderCountries(countries) {
     }
 };
 
-function showThingsToDo() {
-    var selectedCountry = $('.countries').val();
+function showThingsToDo(selectedCountry) {
     if(selectedCountry){
         $('.pic-container')[0].innerHTML = "";
         //console.log('Showing things to do for country: ' + selectedCountry);

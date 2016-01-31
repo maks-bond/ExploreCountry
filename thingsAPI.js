@@ -1,5 +1,5 @@
 // TODO: Take it from your location
-var fromAirport = {code: 'seatac'};
+var fromAirport = {code: 'SEA'};
 
 // TODO: Add people count
 function buildFlightSearchURL(from, to, departure, arrival) {
@@ -32,9 +32,7 @@ function showThings (city) {
   });
 }
 
-function createButtons(fromCity, toCity, departure, arrival){
-  
-  
+function createButtons(fromCity, toCity, departure, arrival) {
    var buttonGroup = $("<div class='cityButtonGroup'></div>");
    var flightDiv = $("<div class='cityButtonContainer'></div>");
    var hotelDiv = flightDiv.clone();
@@ -49,9 +47,9 @@ function createButtons(fromCity, toCity, departure, arrival){
    var fromCityCode = fromCity.code;
    var toCityCode = toCity.code;
 
-   showTravelData(fromCityCode, toCityCode, function(prices) {
-      console.log(fromCityCode);
-   });
+//    showTravelData(fromCityCode, toCityCode, departure, arrival, function(prices) {
+//       console.log(prices);
+//    });
    
    flightExpediaButton.click(function(){
        window.open(buildFlightSearchURL(fromCityCode, toCityCode, departure, arrival), '_blank');
@@ -64,9 +62,9 @@ function createButtons(fromCity, toCity, departure, arrival){
    carExpediaButton.click(function(){
        window.open(buildCarSearchURL(toCityName, toCountry, departure, arrival), '_blank');
    });
-   flightDiv.append(flightExpediaButton).append(flightPrice);
-   hotelDiv.append(hotelExpediaButton).append(hotelPrice);
-   carDiv.append(carExpediaButton).append(carPrice);
+   flightDiv.append(flightExpediaButton)//.append(flightPrice);
+   hotelDiv.append(hotelExpediaButton)//.append(hotelPrice);
+   carDiv.append(carExpediaButton)//.append(carPrice);
    buttonGroup.append(flightDiv).append(hotelDiv).append(carDiv);
   
    return buttonGroup;
@@ -107,10 +105,12 @@ function visualizationThings (city, things, departure, arrival) {
    }); 
 }
 
-function showTravelData (fromCityCode, toCityCode, callback) {
+function showTravelData (fromCityCode, toCityCode, departure, arrival, callback) {
   var travelData = {};
+  var departureDate = (new Date(departure)).toISOString();
+  var arrivalDate = (new Date(arrival)).toISOString();
   $.ajax({
-    url: "http://terminal2.expedia.com:80/x/mflights/search?departureDate=&returnDate=2016-02-20&departureAirport="+ fromCityCode + "&arrivalAirport=" + toCityCode + "&apikey=TkefBxxLZbMGgOvKRGFLIkYJxcB3bYtA",
+    url: "http://terminal2.expedia.com:80/x/mflights/search?departureDate="+departureDate+"&returnDate="+arrivalDate+"&departureAirport="+ fromCityCode + "&arrivalAirport=" + toCityCode + "&apikey=TkefBxxLZbMGgOvKRGFLIkYJxcB3bYtA",
     type: "get",
     success: function(res) { 
       var results = res.offers;

@@ -9,17 +9,35 @@
 
   <link rel="stylesheet" type="text/css" href="style.css"></link>
   <link rel="stylesheet" type="text/css" href="foundation.css"></link>
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 </head>
 
 <body>
 
-  <select class="countries">
-  </select>
-  <a href="#" id="showButton" class="medium success button">Show</a>
-  <div class = "pic-container"></div>
-  <!--<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.4.min.js"></script>-->
+
+  <div id="first">
+      <div id="map"></div>
+      <select id="firstCountries" class="countries"></select>
+      <!--<input id="firstCountries">-->
+      <button id="exploreButton" class="medium success button">Explore </button>
+  </div>  
+  
+  <div id="details">
+    <!--<select class="countries">
+    </select>
+    <a href="#" id="showButton" class="medium success button">Show</a>-->
+    <button id="backToMap" class="medium success button">Back to Map</button>
+    <div class = "pic-container"></div>
+  </div>
+  
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
   <script src="airports.js"></script>
   <script src="thingsAPI.js"></script>
   <script src="script.js"></script>
+  <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDl7z1r-zwVnzceNR9_7uK9l5ZMIE8Nawo&callback=initMap">
+  </script>
 </body>
 </html>

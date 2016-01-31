@@ -16,102 +16,44 @@
     margin-left: 10px !important;
 }
 
+
 .none {
 	display:none;
 }
 
-		
+html, body {
+    height:100%;
+    padding:0;
+    margin:0;
+}
+#map {
+    height: 100%;
+}
 
-		
+#first {
+    height: 100%;
+}
 
-		
+#firstCountries {
+    position: absolute;
+    top: 0px;
+}
 
-		
+#exploreButton {
+    position: absolute;
+    bottom: 40px;
+    left: 48%
+}
 
-		
+#backToMap {
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: 2;
+}
 
-		
-
-		
-
-		
-
-		
-		
-
-		
-
-		
-
-		
-
-		
-
-		
-
-		
-
-		
-
-		
-
-		
-		
-
-		
-
-		
-
-		
-
-		
-
-		
-
-		
-
-		
-
-		
-
-		
-		
-
-		
-
-		
-
-		
-
-		
-
-		
-
-		
-
-		
-
-		
-
-		
-		
-
-		
-
-		
-
-		
-
-		
-
-		
-
-		
-
-		
-
-		
-
-		
-
-			 
+.pic-container {
+    position: absolute;
+    top: 50px;
+    width: 100%;
+}
