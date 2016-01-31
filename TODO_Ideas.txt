@@ -1,1 +1,2 @@
 In future we could search bundle deals and other deals
+Country selection can be somehow more interesting
